@@ -8,7 +8,8 @@ development_configuration = database_configurations['development']
 ActiveRecord::Base.establish_connection(development_configuration)
 
 def welcome
-  puts "Welcome to Survey builder!"
+  puts "Welcome to Survey!""\n\n"
+  "\n\n"
   menu
 end
 
@@ -17,9 +18,9 @@ def menu
   until choice == 'e'
     puts "Press 'a' to add a survey."
     puts "Press 'q' to add questions to a survey."
-    puts "Press 'r' to add responses to a survey."
+    puts "Press 'r' to add responses to a survey.""\n\n"
 
-    puts "Press 's' to choose a survey to take."
+    puts "Press 's' to choose a survey to take.""\n\n"
 
     puts "Press 'l' to list surveys."
     puts "Press 'd' to delete a survey."
@@ -88,7 +89,13 @@ def choose_survey
   Survey.all.each_with_index { |survey, index| puts "#{survey.id} #{survey.name}" }
   survey_id = gets.chomp.to_i
   survey = Survey.find(survey_id)
-
+  survey.questions.each_with_index { |question, index| puts "#{question.id} #{question.name}" }
+  puts "What question would you like to answer?"
+  question_id = gets.chomp.to_i
+  question = Question.find(question_id)
+  question.responses.each_with_index { |response, index| puts "#{response.id} #{response.name}"}
+  response_id = gets.chomp.to_i
+  puts "Thanks for taking this survey."
 end
 
 def list_survey
